@@ -19,9 +19,10 @@ import javax.swing.JTextField;
 public class DBJoin extends JFrame implements MouseListener {
 
 
-		private JTextField nameTf, idTf, pwTf, birthTf;
-		private JButton confBtn, resetBtn;
+	private JTextField nameTf, idTf, pwTf, birthTf;
+	private JButton confBtn, resetBtn;
 		
+	//생성자(UI)//
 	public DBJoin() {
 		
 		JPanel panel = new JPanel();
@@ -31,7 +32,6 @@ public class DBJoin extends JFrame implements MouseListener {
 		setLayout(null);
 		
 		panel.setBounds(12, 10, 262, 200);
-		//panel.setBackground(Color.WHITE);
 		panel.setLayout(null);
 		add(panel);
 		
@@ -88,7 +88,7 @@ public class DBJoin extends JFrame implements MouseListener {
 		
 	}
 	
-	//DB 구현필요
+	
 	Statement stmt = null;
 	ResultSet rs = null;
 	String url = "jdbc:mysql://localhost/yahtzee?characterEncoding=UTF-8&serverTimezone=UTC";

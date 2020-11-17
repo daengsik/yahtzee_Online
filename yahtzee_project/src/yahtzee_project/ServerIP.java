@@ -45,7 +45,7 @@ public class ServerIP extends JFrame{
 				}
 			}
 		});
-		ipField.setText("0.0.0.0");
+		ipField.setText("192.168.0.163");
 		ipField.setBounds(0, 0, 175, 25);
 		panel.add(ipField);
 		

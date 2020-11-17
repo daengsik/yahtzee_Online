@@ -7,15 +7,16 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.StringTokenizer;
 
 public class Client implements Runnable {
 
-	static int PORT = 9999;
-	static String IP = "0.0.0.0";
-	Socket socket;
-	User user;
+	static int PORT = 9999;			//서버포트
+	static String IP = "192.168.0.163";	//서버IP
+	Socket socket;					//소켓
+	User user;						//사용자
 	
-	LoginUI login;
+	LoginUI login;					
 	WaitRoomUI waitRoom;
 	
 	DataInputStream dis;
@@ -25,16 +26,26 @@ public class Client implements Runnable {
 	
 	//생성자//
 	public Client() {
-		login = new LoginUI(this);
+		login = new LoginUI(this);			//로그인 UI 실행
 		
-		Thread thread = new Thread(this);
+		Thread thread = new Thread(this);	//스레드 실행
 		thread.start();
 	}
 	
+	
+	//MAIN//
+	public static void main(String[] args) {
+		System.out.println("Client Start!");
+		new Client();
+	}
+	
+	
 	//스레드//
 	public void run() {
+		//
 		//소켓 통신 시작//
-		while(!ready) {	//false 일때 스레드를 재우면서 대기
+		//
+		while(!ready) {	//준비되지 않았을 때, 스레드를 재우면서 대기
 			try {
 				Thread.sleep(10);		
 			} catch(InterruptedException e) {
@@ -42,6 +53,31 @@ public class Client implements Runnable {
 			}
 		}
 		
+		//사용자가 객체 생성 및 아이피 설정
+		user = new User(dis, dos);
+		user.setIP(socket.getInetAddress().getHostAddress());
+		
+		//메시지 읽음
+		while (true) {
+			try {
+				String receivedMsg = dis.readUTF(); //메시지 받기(대기)
+				dataParsing(receivedMsg); //메시지 해석
+			} catch(IOException e) {
+				e.printStackTrace();
+				try {						//오류 발생시 유저데이터 입출력 스트림 및 소켓 닫기
+					user.getDis().close();
+					user.getDos().close();
+					socket.close();
+					break;
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		
+		//프로그램 종료됨
+		System.out.println("서버프로그램 종료됨");
+		waitRoom.dispose();	
 	}
 	
 	
@@ -80,9 +116,44 @@ public class Client implements Runnable {
 		}
 		return ready;
 	}
+
 	
-	public static void main(String[] args) {
-		System.out.println("Client Start!");
-		new Client();
+	//데이터 해석
+	public synchronized void dataParsing(String data) {
+		StringTokenizer token = new StringTokenizer(data, "/"); //토큰생성
+		String protocol = token.nextToken(); //토큰으로 분리된 String
+		String id, pw, rNum, nickName, rName, msg, result;
+		System.out.println("받은 데이터: "+data);
+		
+		//프로토콜
+		switch (protocol) {
+		case User.LOGIN: 
+			result = token.nextToken();
+			if(result.equals("OK")) {
+				System.out.println("로그인 성공");
+				nickName = token.nextToken();
+				login(nickName);
+			}
+		}
+		
+		
+		
 	}
+	
+	//login
+	private void login(String nickName) {
+		//로그인정보 가져오기
+		user.setId(login.idField.getText());
+		user.setNickName(login.idField.getText());
+		
+		//loginUI 닫고 waitRoomUI 열기
+		login.dispose();
+		waitRoom = new WaitRoomUI(Client.this);
+		
+	}
+	
+	public DataOutputStream getDos() {
+		return dos;
+	}
+
 }

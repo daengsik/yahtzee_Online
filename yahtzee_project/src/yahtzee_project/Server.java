@@ -30,6 +30,8 @@ public class Server extends JFrame implements Runnable {
 	JTextArea jta;
 	JPanel panel;
 	
+	
+	//생성자 (UI)//
 	public Server() {
 		userArray = new ArrayList<User>();
 		roomArray = new ArrayList<Room>();
@@ -56,10 +58,16 @@ public class Server extends JFrame implements Runnable {
 		
 	}
 	
+	
+	//MAIN//
 	public static void main(String[] args) {
-		new Server();
+		Server server = new Server();
+		Thread thread = new Thread(server);
+		thread.start();
 	}
 	
+	
+	//스레드//
 	public void run() {
 		//클라이언트 대기
 		
@@ -74,7 +82,8 @@ public class Server extends JFrame implements Runnable {
 			jta.append("서버 소켓 생성에러\n");
 		}
 		
-		/*
+		
+		
 		while (true) {
 			socket = null;
 			dis = null;
@@ -119,6 +128,7 @@ public class Server extends JFrame implements Runnable {
 
 			Thread thread = new Thread(new ServerThread(jta, person, userArray,	roomArray));
 			thread.start(); // 스레드 시작
-		*/
+		
+		}
 	}
 }

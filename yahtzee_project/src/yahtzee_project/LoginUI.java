@@ -132,7 +132,7 @@ public class LoginUI extends JFrame implements Runnable {
 		new Thread(new Runnable() {
 			public void run() {
 				//소켓생성
-				/*
+				
 				if(client.serverAccess()) {
 					try {
 						//로그인정보 (아이디+패스워드) 전송
@@ -141,7 +141,7 @@ public class LoginUI extends JFrame implements Runnable {
 						e1.printStackTrace();
 					}
 				}
-				*/
+				
 				
 			}	
 		}).start();
