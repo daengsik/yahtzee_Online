@@ -16,7 +16,7 @@ public class rulepage extends JFrame{   // 룰에 대한 설명 프레임 추가 //
 		setLayout(null);
 		setBounds(0,0,720,540);	
 		setResizable(false);	
-		
+		//z
 	
 		try {
 			img = ImageIO.read(new File("img/ruleimg.png"));
