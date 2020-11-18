@@ -1,6 +1,7 @@
 package yahtzee_project;
 
 import java.awt.BorderLayout;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,9 +9,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+
+import javax.sound.sampled.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -29,6 +34,9 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 
 public class WaitRoomUI extends JFrame {
 
@@ -50,20 +58,26 @@ public class WaitRoomUI extends JFrame {
 	DefaultMutableTreeNode root;
 	DefaultMutableTreeNode user;
 	
-	public WaitRoomUI(Client client) {
+	private Player player;
+	playBGM mp = new playBGM(true);
+	
+	public WaitRoomUI(Client client) { 
 		setTitle("대기실");
 		userList = new ArrayList<User>();
 		this.client = client;
-		
+		mp.start();
 		init();
 		
 	}
 	public void init() {
+		
 		setBounds(100, 100, 700, 490);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		
 		setLayout(null);
+		
+		
 		
 		JPanel roomPanel = new JPanel();
 		roomPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "대 기 실", TitledBorder.CENTER, TitledBorder.TOP, null, null));
@@ -184,6 +198,9 @@ public class WaitRoomUI extends JFrame {
 			
 		}
 	}
+	
+	
+	
 	public void getIn() {
 		
 		/*
@@ -206,5 +223,34 @@ public class WaitRoomUI extends JFrame {
 		}
 		*/
 	}
-
+	
+	class playBGM extends Thread { //원래 클래스 안에 있던걸 스레드로 
+		private boolean isLoop;
+		public  playBGM(boolean isLoop) {
+			try {
+				this.isLoop = isLoop;
+				FileInputStream fis = new FileInputStream("bgm/bgm2.mp3");
+				BufferedInputStream bis = new BufferedInputStream(fis);
+				player = new Player(bis);				
+			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}	
+		}
+		public void run(){
+			try {
+				do{
+				player.play();
+				FileInputStream fis = new FileInputStream("bgm/bgm2.mp3");
+				BufferedInputStream bis = new BufferedInputStream(fis);
+				player = new Player(bis);	
+				}while(isLoop);				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error");
+			}
+		}
+	}
+	
 }
