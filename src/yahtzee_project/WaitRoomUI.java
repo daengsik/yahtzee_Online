@@ -1,6 +1,7 @@
 package yahtzee_project;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -36,8 +37,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
+import javax.swing.border.*;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -83,11 +84,16 @@ public class WaitRoomUI extends JFrame {
 		
 		setLayout(null);
 		//JMenuBar menuBar = new JMenuBar();
+		this.getContentPane().setBackground(Color.pink);		// 프레임에 배경색깔 입히기.. 추후에 색깔 바꿔도 좋음! 
 		
 		JPanel roomPanel = new JPanel();
-		roomPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "대 기 실", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		TitledBorder tb = new TitledBorder(new LineBorder(Color.white), "대 기 실", TitledBorder.CENTER, TitledBorder.TOP, null, null);
+															//UIManager.getBorder("TitledBorder.border") 이었는데 테두리 선 바꿀려고 new LineBorder(Color.white) 로 수정
+		roomPanel.setBorder(tb);	
+		
 		roomPanel.setBounds(12, 10, 477, 215);
 		roomPanel.setLayout(new BorderLayout(0,0));
+		roomPanel.setOpaque(false);  // 이거 없으면 border 테두리에는 배경색이 안 입혀짐 //
 		
 		JScrollPane scrollPane = new JScrollPane();
 		roomPanel.add(scrollPane, BorderLayout.CENTER);
@@ -168,10 +174,12 @@ public class WaitRoomUI extends JFrame {
 		add(roomPanel);
 		
 		JPanel chatPanel = new JPanel();
-		chatPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "채 팅 창", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		chatPanel.setBorder(new TitledBorder(new LineBorder(Color.white), "채 팅 창", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+												//UIManager.getBorder("TitledBorder.border") 이었는데 테두리 선 바꿀려고 new LineBorder(Color.white) 로 수정
 		chatPanel.setBounds(12, 235, 477, 185);
 		add(chatPanel);
 		chatPanel.setLayout(new BorderLayout(0,0));
+		chatPanel.setOpaque(false);  // 이거 없으면 border 테두리에는 배경색이 안 입혀짐 //
 		
 		JPanel chatAreaPanel = new JPanel();
 		JPanel chatInputPanel = new JPanel();
@@ -206,12 +214,14 @@ public class WaitRoomUI extends JFrame {
 		chatInputPanel.setLayout(new BoxLayout(chatInputPanel, BoxLayout.X_AXIS));
 		chatPanel.add(chatInputPanel, BorderLayout.SOUTH);
 		JPanel treePanel = new JPanel();
-		treePanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "사용자 목록", TitledBorder.CENTER,	TitledBorder.TOP, null, null));
+		treePanel.setBorder(new TitledBorder(new LineBorder(Color.white), "사용자 목록", TitledBorder.CENTER,	TitledBorder.TOP, null, null));
+										//UIManager.getBorder("TitledBorder.border") 이었는데 테두리 선 바꿀려고 new LineBorder(Color.white) 로 수정
 		treePanel.setBounds(501, 10, 171, 409);
 		JScrollPane scrollPane3 = new JScrollPane();
 		
 		treePanel.setLayout(new BorderLayout(0,0));
 		treePanel.add(scrollPane3, BorderLayout.CENTER);
+		treePanel.setOpaque(false);  // 이거 없으면 border 테두리에는 배경색이 안 입혀짐 //
 		
 		userTree = new JTree();
 		userTree.setEditable(false);
@@ -292,5 +302,5 @@ public class WaitRoomUI extends JFrame {
 			}
 		}
 	}	
-
+	
 }
