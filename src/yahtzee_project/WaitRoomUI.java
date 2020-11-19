@@ -2,6 +2,7 @@ package yahtzee_project;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -118,8 +119,8 @@ public class WaitRoomUI extends JFrame {
 		
 		JPanel roomBtnPanel = new JPanel();
 		makeBtn = new JButton(new ImageIcon("img/makeBtnimg.png"));
-		makeBtn.setBorderPainted(false);
 		makeBtn.setContentAreaFilled(false);
+		makeBtn.setPreferredSize(new Dimension(238, 30));
 		makeBtn.addMouseListener(new MouseAdapter() {			
 			public void mouseClicked(MouseEvent e) {				
 				new Thread(new Runnable() {     // 버튼 누르면 효과음 추가 //
@@ -137,16 +138,10 @@ public class WaitRoomUI extends JFrame {
 				}).start();
 				createRoom();
 			}
-			public void mouseEntered(MouseEvent e) {    // 버튼 올렸을 때 까맣게 
-				makeBtn.setIcon(new ImageIcon("img/makeBtnimg2.png"));
-			}
-			public void mouseExited(MouseEvent e) {		// 버튼 올렸을 때 까맣게 
-				makeBtn.setIcon(new ImageIcon("img/makeBtnimg.png"));				
-			}
+			
 		});
 		getInBtn = new JButton(new ImageIcon("img/getinBtnimg.png"));
-		getInBtn.setBorderPainted(false);
-		getInBtn.setContentAreaFilled(false);
+		getInBtn.setPreferredSize(new Dimension(238, 30));		
 		getInBtn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				new Thread(new Runnable() {     // 버튼 누르면 효과음 추가 //
@@ -164,12 +159,7 @@ public class WaitRoomUI extends JFrame {
 				}).start();
 				getIn();
 			}
-			public void mouseEntered(MouseEvent e) {    // 버튼 올렸을 때 까맣게 
-				getInBtn.setIcon(new ImageIcon("img/getinBtnimg2.png"));
-			}
-			public void mouseExited(MouseEvent e) {		// 버튼 올렸을 때 까맣게 
-				getInBtn.setIcon(new ImageIcon("img/getinBtnimg.png"));				
-			}
+			
 		});
 		roomBtnPanel.add(makeBtn);
 		roomBtnPanel.add(getInBtn);
@@ -203,20 +193,14 @@ public class WaitRoomUI extends JFrame {
 		chatField.setColumns(10);
 		
 		sendBtn = new JButton(new ImageIcon("img/sendBtnimg.png"));
-		sendBtn.setBorderPainted(false);
-		sendBtn.setContentAreaFilled(false);
-		sendBtn.setSize(10,10);
+		sendBtn.setPreferredSize(new Dimension(59, 26));		
+		
 		sendBtn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				msgSummit();
 				chatField.requestFocus();
 			}
-			public void mouseEntered(MouseEvent e) {    // 버튼 올렸을 때 까맣게 
-				sendBtn.setIcon(new ImageIcon("img/sendBtnimg2.png"));
-			}
-			public void mouseExited(MouseEvent e) {		// 버튼 올렸을 때 까맣게 
-				sendBtn.setIcon(new ImageIcon("img/sendBtnimg.png"));				
-			}
+		
 		});
 		chatInputPanel.add(chatField);
 		chatInputPanel.add(sendBtn);
@@ -309,4 +293,5 @@ public class WaitRoomUI extends JFrame {
 			}
 		}
 	}	
+
 }
