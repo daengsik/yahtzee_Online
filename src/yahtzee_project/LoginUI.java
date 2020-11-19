@@ -1,6 +1,7 @@
 package yahtzee_project;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -66,13 +67,14 @@ public class LoginUI extends JFrame implements Runnable {
 		
 		panel.setLayout(null);
 		
-		JButton idLabel = new JButton(new ImageIcon("img/idtext.png"));
+		JButton idLabel = new JButton(new ImageIcon("img/idtext.png"));			// 로그인 창 id 글씨
+		
 		idLabel.setBorderPainted(false);
 		idLabel.setContentAreaFilled(false);
 		idLabel.setBounds(160, 255, 57, 15);		
 		panel.add(idLabel);		
 		
-		JButton passLabel = new JButton(new ImageIcon("img/passtext.png"));
+		JButton passLabel = new JButton(new ImageIcon("img/passtext.png")); // 로그인 창 password 글씨
 		passLabel.setBorderPainted(false);
 		passLabel.setContentAreaFilled(false);
 		passLabel.setBounds(160, 286, 57, 15);
@@ -139,7 +141,7 @@ public class LoginUI extends JFrame implements Runnable {
 		
 	
 		ruleBtn = new JButton(new ImageIcon("img/rulebtimg.png"));  //룰 버튼 추가 //		
-		ruleBtn.setBorderPainted(false);
+		ruleBtn.setBorderPainted(false);						
 		ruleBtn.setContentAreaFilled(false);
 	    
 		ruleBtn.addActionListener(new ActionListener(){		 //룰버튼 누르면 룰페이지로 이동//
@@ -164,7 +166,7 @@ public class LoginUI extends JFrame implements Runnable {
 			}
 		});
 		
-		ruleBtn.setBounds(350, 350, 50, 50);
+		ruleBtn.setBounds(360, 370, 50, 50);
 		panel.add(ruleBtn);
 		
 		ruckBtn = new JButton(new ImageIcon("img/ruckimg.png"));  //운세보기 버튼 추가 //		
@@ -192,8 +194,7 @@ public class LoginUI extends JFrame implements Runnable {
 				}
 			}
 		});
-		
-		ruckBtn.setBounds(290, 350, 50, 50);
+		ruckBtn.setBounds(307, 370, 50, 50);
 		panel.add(ruckBtn);	
 		
 		JButton ipLabel = new JButton(new ImageIcon("img/iptext.png"));

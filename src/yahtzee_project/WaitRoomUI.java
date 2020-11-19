@@ -118,9 +118,8 @@ public class WaitRoomUI extends JFrame {
 		scrollPane.setViewportView(roomList);
 		
 		JPanel roomBtnPanel = new JPanel();
-		makeBtn = new JButton(new ImageIcon("img/makeBtnimg.png"));
-		makeBtn.setContentAreaFilled(false);
-		makeBtn.setPreferredSize(new Dimension(238, 30));
+		makeBtn = new JButton(new ImageIcon("img/makeBtnimg.png")); // 방 만들기 버튼
+		makeBtn.setPreferredSize(new Dimension(238, 30));					//기존 버튼 크기 (이미지(png)말고 기존 버튼)
 		makeBtn.addMouseListener(new MouseAdapter() {			
 			public void mouseClicked(MouseEvent e) {				
 				new Thread(new Runnable() {     // 버튼 누르면 효과음 추가 //
@@ -140,8 +139,8 @@ public class WaitRoomUI extends JFrame {
 			}
 			
 		});
-		getInBtn = new JButton(new ImageIcon("img/getinBtnimg.png"));
-		getInBtn.setPreferredSize(new Dimension(238, 30));		
+		getInBtn = new JButton(new ImageIcon("img/getinBtnimg.png")); //방 입장 버튼
+		getInBtn.setPreferredSize(new Dimension(238, 30));		//기존 버튼 크기 (이미지(png)말고 기존 버튼)
 		getInBtn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				new Thread(new Runnable() {     // 버튼 누르면 효과음 추가 //
@@ -192,8 +191,8 @@ public class WaitRoomUI extends JFrame {
 		});
 		chatField.setColumns(10);
 		
-		sendBtn = new JButton(new ImageIcon("img/sendBtnimg.png"));
-		sendBtn.setPreferredSize(new Dimension(59, 26));		
+		sendBtn = new JButton(new ImageIcon("img/sendBtnimg.png"));  //전송 버튼 이미지
+		sendBtn.setPreferredSize(new Dimension(59, 26));						//기존 버튼 크기 (이미지(png)말고 기존 버튼)
 		
 		sendBtn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
