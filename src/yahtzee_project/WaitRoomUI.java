@@ -1,8 +1,9 @@
 package yahtzee_project;
 
 import java.awt.BorderLayout;
-
+import java.awt.Cursor;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -10,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,10 +21,13 @@ import javax.sound.sampled.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -76,8 +81,7 @@ public class WaitRoomUI extends JFrame {
 		setResizable(false);
 		
 		setLayout(null);
-		
-		
+		//JMenuBar menuBar = new JMenuBar();
 		
 		JPanel roomPanel = new JPanel();
 		roomPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "대 기 실", TitledBorder.CENTER, TitledBorder.TOP, null, null));
@@ -113,16 +117,58 @@ public class WaitRoomUI extends JFrame {
 		scrollPane.setViewportView(roomList);
 		
 		JPanel roomBtnPanel = new JPanel();
-		makeBtn = new JButton("방 만들기");
-		makeBtn.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		makeBtn = new JButton(new ImageIcon("img/makeBtnimg.png"));
+		makeBtn.setBorderPainted(false);
+		makeBtn.setContentAreaFilled(false);
+		makeBtn.addMouseListener(new MouseAdapter() {			
+			public void mouseClicked(MouseEvent e) {				
+				new Thread(new Runnable() {     // 버튼 누르면 효과음 추가 //
+					@Override
+					public void run(){
+						try{
+							 AudioInputStream stream = AudioSystem.getAudioInputStream(new File("bgm/clicksound.wav")); 
+				              Clip clip = AudioSystem.getClip(); 
+				              clip.open(stream); 
+				              clip.start();
+						}catch(Exception e) { 
+				              e.printStackTrace(); 
+				          } 
+					}
+				}).start();
 				createRoom();
 			}
+			public void mouseEntered(MouseEvent e) {    // 버튼 올렸을 때 까맣게 
+				makeBtn.setIcon(new ImageIcon("img/makeBtnimg2.png"));
+			}
+			public void mouseExited(MouseEvent e) {		// 버튼 올렸을 때 까맣게 
+				makeBtn.setIcon(new ImageIcon("img/makeBtnimg.png"));				
+			}
 		});
-		getInBtn = new JButton("방 입장");
+		getInBtn = new JButton(new ImageIcon("img/getinBtnimg.png"));
+		getInBtn.setBorderPainted(false);
+		getInBtn.setContentAreaFilled(false);
 		getInBtn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				new Thread(new Runnable() {     // 버튼 누르면 효과음 추가 //
+					@Override
+					public void run(){
+						try{
+							 AudioInputStream stream = AudioSystem.getAudioInputStream(new File("bgm/clicksound.wav")); 
+				              Clip clip = AudioSystem.getClip(); 
+				              clip.open( stream ); 
+				              clip.start();
+						}catch(Exception e) { 
+				              e.printStackTrace(); 
+				          } 
+					}
+				}).start();
 				getIn();
+			}
+			public void mouseEntered(MouseEvent e) {    // 버튼 올렸을 때 까맣게 
+				getInBtn.setIcon(new ImageIcon("img/getinBtnimg2.png"));
+			}
+			public void mouseExited(MouseEvent e) {		// 버튼 올렸을 때 까맣게 
+				getInBtn.setIcon(new ImageIcon("img/getinBtnimg.png"));				
 			}
 		});
 		roomBtnPanel.add(makeBtn);
@@ -155,11 +201,21 @@ public class WaitRoomUI extends JFrame {
 			}
 		});
 		chatField.setColumns(10);
-		sendBtn = new JButton("전송");
+		
+		sendBtn = new JButton(new ImageIcon("img/sendBtnimg.png"));
+		sendBtn.setBorderPainted(false);
+		sendBtn.setContentAreaFilled(false);
+		sendBtn.setSize(10,10);
 		sendBtn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				msgSummit();
 				chatField.requestFocus();
+			}
+			public void mouseEntered(MouseEvent e) {    // 버튼 올렸을 때 까맣게 
+				sendBtn.setIcon(new ImageIcon("img/sendBtnimg2.png"));
+			}
+			public void mouseExited(MouseEvent e) {		// 버튼 올렸을 때 까맣게 
+				sendBtn.setIcon(new ImageIcon("img/sendBtnimg.png"));				
 			}
 		});
 		chatInputPanel.add(chatField);
@@ -183,6 +239,7 @@ public class WaitRoomUI extends JFrame {
 		scrollPane3.setViewportView(userTree);
 		add(treePanel);
 		
+		setLocationRelativeTo(null);
 		setVisible(true);
 	};
 	
@@ -251,6 +308,5 @@ public class WaitRoomUI extends JFrame {
 				System.out.println("error");
 			}
 		}
-	}
-	
+	}	
 }
