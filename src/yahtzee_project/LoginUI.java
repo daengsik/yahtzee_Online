@@ -32,7 +32,7 @@ public class LoginUI extends JFrame implements Runnable {
 	boolean confirm = false;
 	JTextField idField;
 	JPasswordField passField;
-	JButton loginBtn, signUpBtn, ipBtn, bgmBtn, ruleBtn;
+	JButton loginBtn, signUpBtn, ipBtn, bgmBtn, ruleBtn, ruckBtn;
 	Client client;
 	DBJoin jdb;
 
@@ -165,7 +165,36 @@ public class LoginUI extends JFrame implements Runnable {
 		});
 		
 		ruleBtn.setBounds(350, 350, 50, 50);
-		panel.add(ruleBtn);			
+		panel.add(ruleBtn);
+		
+		ruckBtn = new JButton(new ImageIcon("img/ruckimg.png"));  //운세보기 버튼 추가 //		
+		ruckBtn.setBorderPainted(false);
+		ruckBtn.setContentAreaFilled(false);
+	    
+		ruckBtn.addActionListener(new ActionListener(){		 //운세보기버튼 누르면 운세페이지로 이동//
+			@Override
+			public void actionPerformed(ActionEvent e){
+				if(e.getSource()==ruckBtn){
+					//운세페이지로 넘어가는 클래스 아직 성훈님한테 못받음! 나중에 추가
+					new Thread(new Runnable() {
+						@Override
+						public void run(){  // 버튼 누르면 효과음 추가 //
+							try{
+								 AudioInputStream stream = AudioSystem.getAudioInputStream(new File("bgm/clicksound.wav")); 
+					              Clip clip = AudioSystem.getClip(); 
+					              clip.open( stream ); 
+					              clip.start();
+							}catch(Exception e) { 
+					              e.printStackTrace(); 
+					          } 
+						}
+					}).start();
+				}
+			}
+		});
+		
+		ruckBtn.setBounds(290, 350, 50, 50);
+		panel.add(ruckBtn);	
 		
 		JButton ipLabel = new JButton(new ImageIcon("img/iptext.png"));
 		ipLabel.setBorderPainted(false);
@@ -220,26 +249,6 @@ public class LoginUI extends JFrame implements Runnable {
 		
 		//msgSummit() end
 	}
-	class playBGM extends Thread { //원래 클래스 안에 있던걸 스레드로 
-		public  playBGM() {
-			try {
-			
-				FileInputStream fis = new FileInputStream("bgm/bgm2.mp3");
-				BufferedInputStream bis = new BufferedInputStream(fis);
-				player = new Player(bis);				
-			
-			} catch(Exception e) {
-				e.printStackTrace();
-			}	
-		}
-		public void run(){
-			try {
-				player.play();
-			} catch (JavaLayerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+	
 
 }
