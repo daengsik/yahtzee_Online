@@ -177,7 +177,7 @@ public class LoginUI extends JFrame implements Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e){
 				if(e.getSource()==ruckBtn){
-					//운세페이지로 넘어가는 클래스 아직 성훈님한테 못받음! 나중에 추가
+					new ruckpage();
 					new Thread(new Runnable() {
 						@Override
 						public void run(){  // 버튼 누르면 효과음 추가 //
