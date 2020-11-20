@@ -25,9 +25,9 @@ public class ruckpage extends JFrame {
 	static int emp = 0; 
 	public ruckpage(){
 		setTitle("운세");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setBounds(0,0,560,530);
+		
 		try {				
 			img = ImageIO.read(new File("img/ruckbackimg.png"));
 					
@@ -45,14 +45,14 @@ public class ruckpage extends JFrame {
 		
 		
 		one= new JLabel(luck());				// 1~100% 확률 받기
-		one1 = emp;									// 세 개 수치 비교하기 위해 static으로 만든 emp를 사용해서 one1에 정수 담아둠
+		one1 = emp;									// 세 개 수치 비교하기 위해 static으로 만든 emp를 사용해서 one1에 정수 담아둠 - 밑에 ruck 클래스에서.
 		one.setFont(new Font("Serif",Font.BOLD,30));
 		one.setForeground(Color.black);
 		one.setBounds(94, 135, 100, 100);		
 		panel.add(one);
 		
 		two= new JLabel(luck());					// 1~100% 확률 받기
-		two1 = emp;										// 세 개 수치 비교하기 위해 static으로 만든 emp를 사용해서 one1에 정수 담아둠
+		two1 = emp;										// 세 개 수치 비교하기 위해 static으로 만든 emp를 사용해서 one1에 정수 담아둠,, 
 		two.setFont(new Font("Serif",Font.BOLD,30));
 		two.setForeground(Color.black);
 		two.setBounds(244, 135, 100, 100);
@@ -110,9 +110,6 @@ public class ruckpage extends JFrame {
 		}
 		return result;		
 	}
-
-	public static void main(String[] args) {
-		new ruckpage();			
-	}
+	
 }
 
